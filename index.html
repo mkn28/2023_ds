@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ランダムな素数を生成する</title>
+  <title>素数を生成して喜びを表示</title>
+  <style>
+    .celebration {
+      display: none;
+      font-size: 24px;
+      color: green;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <button onclick="generateRandomPrime()">ランダムな素数を生成</button>
-  <p id="output"></p>
+  <button onclick="generateAndCelebratePrime()">素数を生成</button>
+  <p id="output">生成された数: </p>
+  <div class="celebration" id="celebration">素数が生成されました！喜びましょう！ 🎉</div>
 
   <script>
     function isPrime(number) {
@@ -26,16 +35,24 @@
       return true;
     }
 
-    function generateRandomPrime() {
+    function generateAndCelebratePrime() {
       const min = 1;
       const max = 1000; // 素数を生成する範囲を設定
 
-      let randomPrime = Math.floor(Math.random() * (max - min + 1)) + min;
-      while (!isPrime(randomPrime)) {
-        randomPrime = Math.floor(Math.random() * (max - min + 1)) + min;
+      let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+      const outputElement = document.getElementById('output');
+      outputElement.textContent = `生成された数: ${randomNum}`;
+      if (isPrime(randomNum)) {
+        celebrate();
       }
+    }
 
-      document.getElementById('output').textContent = `ランダムな素数: ${randomPrime}`;
+    function celebrate() {
+      const celebrationMessage = document.getElementById('celebration');
+      celebrationMessage.style.display = 'block';
+      setTimeout(() => {
+        celebrationMessage.style.display = 'none';
+      }, 2000);
     }
   </script>
 </body>
