@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ランダムな素数を生成する</title>
+</head>
+<body>
+  <button onclick="generateRandomPrime()">ランダムな素数を生成</button>
+  <p id="output"></p>
+
+  <script>
+    function isPrime(number) {
+      if (number <= 1) {
+        return false;
+      }
+      if (number <= 3) {
+        return true;
+      }
+      if (number % 2 === 0 || number % 3 === 0) {
+        return false;
+      }
+      for (let i = 5; i * i <= number; i += 6) {
+        if (number % i === 0 || number % (i + 2) === 0) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function generateRandomPrime() {
+      const min = 1;
+      const max = 1000; // 素数を生成する範囲を設定
+
+      let randomPrime = Math.floor(Math.random() * (max - min + 1)) + min;
+      while (!isPrime(randomPrime)) {
+        randomPrime = Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      document.getElementById('output').textContent = `ランダムな素数: ${randomPrime}`;
+    }
+  </script>
+</body>
+</html>
